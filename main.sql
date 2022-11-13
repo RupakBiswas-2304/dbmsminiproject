@@ -1,0 +1,2 @@
+CREATE DATABASE library_mini_project;
+USE library_mini_project;
