@@ -10,7 +10,7 @@
 ## Procedures and Functions
 
 - ### GuestHouse
-  - Room Booking.
+  - [ ] Room Booking.
   - Bill Generation.
   - Check-in & Check-out for staff.
   - Food Booking.
