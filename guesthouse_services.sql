@@ -63,11 +63,10 @@ CREATE TABLE `booking` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
     room_id INT NOT NULL,
-    paid BOOLEAN NOT,
     payment_option_id INT,
     checkin_date DATETIME NOT NULL,
-    checkout_date DATETIME NOT NULL, 
-    completed BOOLEAN,
+    checkout_date DATETIME,
+    completed BOOLEAN DEFAULT FLASE,
     FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
     FOREIGN KEY (room_id) REFERENCES `Room`(id),
     FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id)
@@ -178,12 +177,13 @@ DELIMITER ;
 
 -- booking functions
 DELIMITER ||
-CREATE FUNCTION `getBookingDetails`(
+CREATE FUNCTION `BookGuestHouse`(
     guest_id INT,
     room_id INT,
-    checkin_time DATETIME
+    checkin_date DATETIME,
+    payment_option_id INT
     )
-    RETURNS INT
+    RETURNS BOOLEAN
     DETERMINISTIC
     BEGIN
         DECLARE is_avilable BOOLEAN;
@@ -192,9 +192,11 @@ CREATE FUNCTION `getBookingDetails`(
             vacant = TRUE AND maintenance = TRUE;
         IF number_of_emptyroom = 0 THEN 
             SET is_avilable = TRUE;
+            INSERT INTO `booking` (guest_id, room_id, checkin_date,payment_option_id ) \
+                VALUES (guest_id, room_id, checkin_time, payment_option_id);
         ELSE 
             SET is_avilable = FALSE;
         END IF;
-        INSERT 
+        RETURN (is_avilable);
     END ||
 DELIMITER;
