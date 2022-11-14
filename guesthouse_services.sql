@@ -32,7 +32,7 @@ CREATE TABLE `GuestHouse` (
 );
 
 -- _Roomtype table
-CREATE TABLE `RoomType` (
+CREATE TABLE `_RoomType` (
     id INT PRIMARY KEY NOT NULL UNIQUE,
     occupancy_limit INT NOT NULL,
     suite BOOLEAN,
