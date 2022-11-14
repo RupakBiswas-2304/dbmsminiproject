@@ -66,7 +66,7 @@ CREATE TABLE `booking` (
     payment_option_id INT,
     checkin_date DATETIME NOT NULL,
     checkout_date DATETIME,
-    completed BOOLEAN DEFAULT FLASE,
+    completed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
     FOREIGN KEY (room_id) REFERENCES `Room`(id),
     FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id)
