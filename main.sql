@@ -12,5 +12,5 @@
 ****************************
 ****************************/
 
-CREATE DATABASE library_mini_project;
-USE library_mini_project;
+CREATE DATABASE mini_project;
+USE mini_project;

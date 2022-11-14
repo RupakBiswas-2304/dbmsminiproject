@@ -1,20 +1,20 @@
 /************************************
-*************************************
-** Mini Project                    **
-**                                 **
-** Authors:                        **
-**   - Rupak Biswas                **
-**   - Aman Agarwal                **
-**   - Sanskriti Singh             **
-**   - Dinesh Chukkala             **
-**                                 **
-** File: guesthouse_services.sql   **
-*************************************
-*************************************/
+ *************************************
+ ** Mini Project                    **
+ **                                 **
+ ** Authors:                        **
+ **   - Rupak Biswas                **
+ **   - Aman Agarwal                **
+ **   - Sanskriti Singh             **
+ **   - Dinesh Chukkala             **
+ **                                 **
+ ** File: guesthouse_services.sql   **
+ *************************************
+ *************************************/
 
 -- Refer Page-1 of flowchar.drawio
 
-USE library_mini_project;
+USE mini_project;
 
 -- Guest table
 CREATE TABLE `Guest` (
@@ -32,24 +32,24 @@ CREATE TABLE `GuestHouse` (
 );
 
 -- _Roomtype table
-CREATE  TABLE `RoomType` (
+CREATE TABLE `RoomType` (
     id INT PRIMARY KEY NOT NULL UNIQUE,
     occupancy_limit INT NOT NULL,
-    suit BOOLEAN,
+    suite BOOLEAN,
     price INT NOT NULL
 );
 
 -- Room table
 CREATE TABLE `Room` (
-    id INT PRIMARY KEY  AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     room_no VARCHAR(10) NOT NULL,
     guesthouse_id INT NOT NULL,
     block VARCHAR(10),
     vacant BOOLEAN,
-    maintaience BOOLEAN,
+    maintenance BOOLEAN,
     type INT NOT NULL,
-    FOREIGN KEY (guesthouse_id) REFERENCES GuestHouse(id),
-    FOREIGN KEY (type) REFERENCES RoomType(id)
+    FOREIGN KEY (guesthouse_id) REFERENCES `GuestHouse`(id),
+    FOREIGN KEY (type) REFERENCES `_RoomType`(id)
 );
 
 -- Payment Options
@@ -66,15 +66,14 @@ CREATE TABLE `booking` (
     paid BOOLEAN NOT NULL,
     payment_option_id INT NOT NULL,
     checkin_date DATETIME NOT NULL,
-    checkout_date DATETIME NOT NULL
-    FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
+    checkout_date DATETIME NOT NULL FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
+    completed BOOLEAN,
     FOREIGN KEY (room_id) REFERENCES `Room`(id),
-    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOptions`(id) 
+    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOptions`(id)
 );
 
-
 -- Food Item Table
-CREATE TABLE `FoodItem` (
+CREATE TABLE`FoodItem` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     price INT NOT NULL,
@@ -108,6 +107,13 @@ CREATE TABLE `_Designation` (
     salary INT
 );
 
+-- Staff Shift Table
+CREATE TABLE `_StaffShift` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    entry_time TIME NOT NULL,
+    exit_time TIME NOT NULL
+);
+
 --  Staff Table
 CREATE TABLE `Staff` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -117,7 +123,9 @@ CREATE TABLE `Staff` (
     address TEXT,
     designation_id INT NOT NULL,
     on_duty BOOLEAN,
-    FOREIGN KEY (designation_id) REFERENCES `_Designation`(id)
+    shift_id INT,
+    FOREIGN KEY (designation_id) REFERENCES `_Designation`(id),
+    FOREIGN KEY (shift_id) REFERENCES `_StaffShift`(id)
 );
 
 --  DutyLog Table
@@ -128,3 +136,39 @@ CREATE TABLE `DutyLog` (
     checkout_time DATETIME,
     FOREIGN KEY (staff_id) REFERENCES `Staff`(id)
 );
+
+-- MaintenanceLog Table
+CREATE TABLE `MaintenanceLog` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    staff_id INT NOT NULL,
+    room_id INT NOT NULL,
+    log_time DATETIME NOT NULL,
+    FOREIGN KEY (staff_id) REFERENCES `Staff`(id),
+    FOREIGN KEY (room_id) REFERENCES `Room`(id)
+);
+
+-- Trigger on INSERT of Booking
+DELIMITER |
+CREATE TRIGGER `BOOKING_INSERT_EVENT`
+AFTER INSERT
+ON `booking` FOR EACH ROW
+BEGIN
+	UPDATE `Room`
+	SET `Room`.vacant = FALSE
+	WHERE `Room`.id = NEW.room_id;
+END; |
+DELIMITER ;
+
+-- Trigger on UPDATE of Booking
+DELIMITER |
+CREATE TRIGGER `BOOKING_UPDATE_EVENT`
+AFTER UPDATE
+ON `booking` FOR EACH ROW
+BEGIN
+    IF (NEW.completed = TRUE AND OLD.completed = FALSE) THEN
+	    UPDATE `Room`
+	    SET `Room`.vacant = TRUE, `Room`.maintenance = TRUE
+	    WHERE `Room`.id = NEW.room_id;
+    END IF;
+END; |
+DELIMITER ;
