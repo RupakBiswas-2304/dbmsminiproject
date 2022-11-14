@@ -11,9 +11,9 @@
 
 - ### GuestHouse
   - [ ] Room Booking.
-  - Bill Generation.
-  - Check-in & Check-out for staff.
-  - Food Booking.
+  - [ ] Bill Generation.
+  - [ ] Check-in & Check-out for staff.
+  - [ ] Food Booking.
 - ### MarketPlace
 
 ## Possible Columns to be Indexed
