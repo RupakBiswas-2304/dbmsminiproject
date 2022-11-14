@@ -32,7 +32,7 @@ CREATE TABLE `GuestHouse` (
 );
 
 -- _Roomtype table
-CREATE TABLE `RoomType` (
+CREATE TABLE `_RoomType` (
     id INT PRIMARY KEY NOT NULL UNIQUE,
     occupancy_limit INT NOT NULL,
     suite BOOLEAN,
@@ -53,9 +53,9 @@ CREATE TABLE `Room` (
 );
 
 -- Payment Options
-CREATE TABLE `_PaymentOptions` (
+CREATE TABLE `_PaymentOption` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    option VARCHAR(50) UNIQUE NOT NULL
+    payment_option VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- booking Relation table
@@ -63,13 +63,14 @@ CREATE TABLE `booking` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
     room_id INT NOT NULL,
-    paid BOOLEAN NOT NULL,
-    payment_option_id INT NOT NULL,
+    paid BOOLEAN,
+    payment_option_id INT,
     checkin_date DATETIME NOT NULL,
-    checkout_date DATETIME NOT NULL FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
+    checkout_date DATETIME NOT NULL,
+    FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
     completed BOOLEAN,
     FOREIGN KEY (room_id) REFERENCES `Room`(id),
-    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOptions`(id)
+    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id)
 );
 
 -- Food Item Table
@@ -84,11 +85,11 @@ CREATE TABLE`FoodItem` (
 CREATE TABLE `foodOrders` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
-    paid BOOLEAN NOT NULL,
-    payment_option_id INT NOT NULL,
+    paid BOOLEAN,
+    payment_option_id INT,
     total_amount INT NOT NULL,
     FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
-    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOptions`(id)
+    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id)
 );
 
 -- food Item Booking Table
