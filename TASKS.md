@@ -3,8 +3,8 @@
 ## Triggers
 
 - ### GuestHouse
-  - Vacancy and Maintenance of Room upon Booking.
-  - onDuty should be updated on the bases of DutyLog.
+  - [x] Vacancy and Maintenance of Room upon Booking.
+  - [ ] onDuty should be updated on the bases of DutyLog.
 - ### MarketPlace
 
 ## Procedures and Functions
@@ -19,8 +19,8 @@
 ## Possible Columns to be Indexed
 
 - ### GuestHouse
-    - #### Food Item
-        - Availability.
-    - #### booking
-        - 
+  - #### Food Item
+    - Availability.
+  - #### booking
+    -
 - ### MarketPlace
