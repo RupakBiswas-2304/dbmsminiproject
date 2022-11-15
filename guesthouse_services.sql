@@ -157,12 +157,25 @@ CREATE TABLE `MaintenanceLog` (
 -- Trigger on INSERT of Booking
 DELIMITER |
 CREATE TRIGGER `BOOKING_INSERT_EVENT`
-AFTER INSERT
+BEFORE INSERT
 ON `booking` FOR EACH ROW
 BEGIN
+    -- UPDATING Room vacancy
 	UPDATE `Room`
 	SET `Room`.vacant = FALSE
 	WHERE `Room`.id = NEW.room_id;
+
+    SET NEW.total_amount = (
+        SELECT TIMESTAMPDIFF(
+            DAY, NEW.checkin_date, NEW.checkout_date
+        )
+    ) * (
+        SELECT price FROM _RoomType
+        WHERE _RoomType.id = (
+            SELECT type FROM Room
+            WHERE Room.id = NEW.room_id
+        )
+    ); 
 END; |
 DELIMITER ;
 
