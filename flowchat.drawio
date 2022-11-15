@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ycOPQLDIYc8ZWvYrpJF7" name="GuestHouse Amenities">
-        <mxGraphModel dx="1953" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1954" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -159,20 +159,20 @@
                         <mxPoint x="115" y="1128" as="sourcePoint"/>
                         <mxPoint x="195" y="1050" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="385" y="1265"/>
+                            <mxPoint x="385" y="1275"/>
                             <mxPoint x="385" y="1110"/>
                             <mxPoint x="250" y="1110"/>
                             <mxPoint x="250" y="975"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="123" value="_StaffShift" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" vertex="1" parent="1">
+                <mxCell id="123" value="_StaffShift" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" parent="1" vertex="1">
                     <mxGeometry x="150" y="1390" width="200" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="124" value="+ ID (INT) PK&#10;+ EntryTime (TIME) NN&#10;+ ExitTime (TIME) " style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" vertex="1" parent="123">
+                <mxCell id="124" value="+ ID (INT) PK&#10;+ EntryTime (TIME) NN&#10;+ ExitTime (TIME) " style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="123" vertex="1">
                     <mxGeometry y="30" width="200" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="125" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.838;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="124" target="104">
+                <mxCell id="125" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.838;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="124" target="104" edge="1">
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
                         <mxPoint x="-20" y="1460" as="sourcePoint"/>
                         <mxPoint x="400" y="1320" as="targetPoint"/>
