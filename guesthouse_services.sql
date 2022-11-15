@@ -27,13 +27,13 @@ CREATE TABLE `Guest` (
 
 -- Guest House table
 CREATE TABLE `GuestHouse` (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
 -- _Roomtype table
 CREATE TABLE `_RoomType` (
-    id INT PRIMARY KEY NOT NULL UNIQUE,
+    id INT PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
     occupancy_limit INT NOT NULL,
     suite BOOLEAN,
     price INT NOT NULL
@@ -275,7 +275,7 @@ BEGIN
                         FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
     END IF;
 END ||
-DELIMIER ;
+DELIMITER ;
 
 
 -- food booking
