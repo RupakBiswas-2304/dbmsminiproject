@@ -222,6 +222,22 @@ BEGIN
 END; |
 DELIMITER ;
 
+DELIMITER |
+CREATE TRIGGER `HandleFoodOrderAmount`
+AFTER INSERT
+ON `foodItemBooking` FOR EACH ROW
+BEGIN
+    UPDATE `foodOrders`
+    SET `foodOrders`.total_amount = (
+        SELECT SUM(`FoodItem`.price * `foodItemBooking`.amount)
+        FROM `foodItemBooking`
+        INNER JOIN `FoodItem`
+        ON `foodItemBooking`.food_item_id = `FoodItem`.id
+        WHERE `foodItemBooking`.order_id = NEW.order_id
+    )
+    WHERE `foodOrders`.id = NEW.order_id;
+END; |
+
 -- ##########
 -- Functions --
 -- ##########
@@ -269,7 +285,7 @@ BEGIN
     ELSEIF bill_type = 'food' THEN
         SET @constString = 'total';
         SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
-        SELECT `foodItemBooking`.id as id, `FoodItem`.name as name, `FoodItem`.price as price 
+        SELECT `foodItemBooking`.id as id, `FoodItem`.name as name, (`FoodItem`.price * `foodItemBooking`.amount ) as price 
             FROM `foodItemBooking` INNER JOIN `FoodItem` ON `foodItemBooking`.food_item_id = `FoodItem`.id 
                 WHERE `foodItemBooking`.order_id = @foodOrdersId UNION 
                     SELECT `foodOrders`.id as id, @constString as name, `foodOrders`.total_amount as price 

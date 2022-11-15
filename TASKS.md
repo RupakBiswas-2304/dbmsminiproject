@@ -13,7 +13,7 @@
   - [x] Room Booking.
   - [x] Bill Generation.
   - [ ] Check-in & Check-out for staff.
-  - [ ] Food Booking.
+  - [x] Food Booking.
 - ### MarketPlace
 
 ## Possible Columns to be Indexed
