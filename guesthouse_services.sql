@@ -86,7 +86,7 @@ CREATE TABLE `foodOrders` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
     booking_id INT NOT NULL,
-    paid BOOLEAN,
+    paid BOOLEAN DEFAULT FALSE,
     payment_option_id INT,
     total_amount INT NOT NULL,
     FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
@@ -98,6 +98,7 @@ CREATE TABLE `foodOrders` (
 CREATE TABLE `foodItemBooking` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
+    amount INT NOT NULL DEFAULT 1,
     food_item_id INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES `foodOrders`(id),
     FOREIGN KEY (food_item_id) REFERENCES `FoodItem`(id)
@@ -282,6 +283,23 @@ CREATE PROCEDURE `BookFood`(
     IN guest_id INT,
     IN booking_id INT,
     IN food_item_id INT,
-    IN quantity INT,
-    IN payment_option_id INT
-)
+    IN quantity INT
+) BEGIN 
+    SET @is_avilable = (SELECT availability from `FoodItem` WHERE `FoodItem`.id = food_item_id);
+    IF is_avilable = TRUE THEN
+        SET @is_first_order = (SELECT COUNT(*) FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
+        IF is_first_order = 0 THEN
+            INSERT INTO `foodOrders` (guest_id, booking_id, total_amount) VALUES (guest_id, booking_id, 0);
+            SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
+            INSERT INTO `foodItemBooking` (order_id, food_item_id, quantity) VALUES (@foodOrdersId, food_item_id, quantity);
+        ELSE
+            SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
+            INSERT INTO `foodItemBooking` (order_id, food_item_id, quantity) VALUES (@foodOrdersId, food_item_id, quantity);
+        END IF;
+    ELSE 
+        SET @errorMessage = 'Food item not available';
+        SELECT @errorMessage as message ;
+    END IF;
+
+END ||
+DELIMITER ;
