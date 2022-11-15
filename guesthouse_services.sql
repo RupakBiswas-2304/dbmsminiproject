@@ -63,7 +63,7 @@ CREATE TABLE `booking` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
     room_id INT NOT NULL,
-    total_amount INT NOT NULL,
+    total_amount INT DEFAULT 0,
     payment_option_id INT,
     checkin_date DATETIME NOT NULL,
     checkout_date DATETIME,
@@ -222,7 +222,9 @@ BEGIN
 END; |
 DELIMITER ;
 
+-- ##########
 -- Functions --
+-- ##########
 
 -- booking functions
 DELIMITER ||
@@ -237,12 +239,12 @@ CREATE FUNCTION `BookGuestHouse`(
     BEGIN
         DECLARE is_avilable BOOLEAN;
         DECLARE number_of_emptyroom INT;
-        SELECT COUNT(*) INTO number_of_emptyroom FROM `Room` WHERE \
-            vacant = TRUE AND maintenance = TRUE;
-        IF number_of_emptyroom = 0 THEN 
+        SELECT COUNT(*) INTO number_of_emptyroom FROM `Room` WHERE 
+            vacant = TRUE AND maintenance = TRUE AND id = room_id;
+        IF number_of_emptyroom = 1 THEN 
             SET is_avilable = TRUE;
-            INSERT INTO `booking` (guest_id, room_id, checkin_date,payment_option_id ) \
-                VALUES (guest_id, room_id, checkin_time, payment_option_id);
+            INSERT INTO `booking` (guest_id, room_id, checkin_date,payment_option_id ) 
+                VALUES (guest_id, room_id, checkin_date, payment_option_id);
         ELSE 
             SET is_avilable = FALSE;
         END IF;
@@ -254,11 +256,10 @@ DELIMITER ;
 DELIMITER ||
 CREATE PROCEDURE `GenerateBill`(
     IN guest_id INT,
-    IN bookingid INT,
+    IN booking_id INT,
     IN bill_type VARCHAR(50)
 )
 BEGIN
-    SET @booking_id = bookingid;
     IF bill_type = 'total' THEN
         -- show all bills combining food and room
         SELECT `booking`.id as id ,`booking`.total_amount as total_amount, `booking`.payment_option_id as payment_option 
@@ -270,7 +271,7 @@ BEGIN
         SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
         SELECT `foodItemBooking`.id as id, `FoodItem`.name as name, `FoodItem`.price as price 
             FROM `foodItemBooking` INNER JOIN `FoodItem` ON `foodItemBooking`.food_item_id = `FoodItem`.id 
-                WHERE `foodItemBooking`.order_id = foodOrdersId UNION 
+                WHERE `foodItemBooking`.order_id = @foodOrdersId UNION 
                     SELECT `foodOrders`.id as id, @constString as name, `foodOrders`.total_amount as price 
                         FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
     END IF;
@@ -287,15 +288,15 @@ CREATE PROCEDURE `BookFood`(
     IN quantity INT
 ) BEGIN 
     SET @is_avilable = (SELECT availability from `FoodItem` WHERE `FoodItem`.id = food_item_id);
-    IF is_avilable = TRUE THEN
+    IF @is_avilable = TRUE THEN
         SET @is_first_order = (SELECT COUNT(*) FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
-        IF is_first_order = 0 THEN
+        IF @is_first_order = 0 THEN
             INSERT INTO `foodOrders` (guest_id, booking_id, total_amount) VALUES (guest_id, booking_id, 0);
             SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
-            INSERT INTO `foodItemBooking` (order_id, food_item_id, quantity) VALUES (@foodOrdersId, food_item_id, quantity);
+            INSERT INTO `foodItemBooking` (order_id, food_item_id, amount) VALUES (@foodOrdersId, food_item_id, quantity);
         ELSE
             SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
-            INSERT INTO `foodItemBooking` (order_id, food_item_id, quantity) VALUES (@foodOrdersId, food_item_id, quantity);
+            INSERT INTO `foodItemBooking` (order_id, food_item_id, amount) VALUES (@foodOrdersId, food_item_id, quantity);
         END IF;
     ELSE 
         SET @errorMessage = 'Food item not available';
