@@ -150,6 +150,10 @@ CREATE TABLE `MaintenanceLog` (
     FOREIGN KEY (room_id) REFERENCES `Room`(id)
 );
 
+-- ####################
+-- #     Triggers     #
+-- ####################
+
 -- Trigger on INSERT of Booking
 DELIMITER |
 CREATE TRIGGER `BOOKING_INSERT_EVENT`
@@ -172,6 +176,34 @@ BEGIN
 	    UPDATE `Room`
 	    SET `Room`.vacant = TRUE, `Room`.maintenance = TRUE
 	    WHERE `Room`.id = NEW.room_id;
+    END IF;
+END; |
+DELIMITER ;
+
+-- Trigger on DutyLog INSERT
+DELIMITER |
+CREATE TRIGGER `DutyLog_INSERT_EVENT`
+AFTER INSERT
+ON `DutyLog` FOR EACH ROW
+BEGIN
+    IF (NEW.checkin_time IS NOT NULL) THEN
+        UPDATE `Staff`
+        SET `Staff`.on_duty = TRUE
+        WHERE `Staff`.id = NEW.staff_id;
+    END IF;
+END; |
+DELIMITER ;
+
+-- Trigger on DutyLog UPDATE
+DELIMITER |
+CREATE TRIGGER `DutyLog_UPDATE_EVENT`
+AFTER UPDATE
+ON `DutyLog` FOR EACH ROW
+BEGIN
+    IF (NEW.checkout_time IS NOT NULL AND OLD.checkout_time IS NULL) THEN
+        UPDATE `Staff`
+        SET `Staff`.on_duty = FALSE
+        WHERE `Staff`.id = NEW.staff_id;
     END IF;
 END; |
 DELIMITER ;

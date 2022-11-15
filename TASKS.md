@@ -4,7 +4,7 @@
 
 - ### GuestHouse
   - [x] Vacancy and Maintenance of Room upon Booking.
-  - [ ] onDuty should be updated on the bases of DutyLog.
+  - [x] onDuty should be updated on the bases of DutyLog.
 - ### MarketPlace
 
 ## Procedures and Functions
