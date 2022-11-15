@@ -248,7 +248,7 @@ CREATE FUNCTION `BookGuestHouse`(
         END IF;
         RETURN (is_avilable);
     END ||
-DELIMITER;
+DELIMITER ;
 
 -- bill generation function
 DELIMITER ||
@@ -275,6 +275,7 @@ BEGIN
                         FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
     END IF;
 END ||
+DELIMIER ;
 
 
 -- food booking
