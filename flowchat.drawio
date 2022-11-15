@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ycOPQLDIYc8ZWvYrpJF7" name="GuestHouse Amenities">
-        <mxGraphModel dx="1953" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1881" dy="592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -23,7 +23,7 @@
                     <mxGeometry y="30" width="230" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="43" value="booking" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006600;strokeColor=#82b366;gradientColor=#97d077;gradientDirection=north;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="550" width="210" height="160" as="geometry"/>
+                    <mxGeometry x="540" y="550" width="210" height="160" as="geometry"/>
                 </mxCell>
                 <mxCell id="44" value="+ ID (INT) PK&#10;+ GuestID (INT) FK NN&#10;+ RoomID (INT) FK NN&#10;+ Paid (Bool) NN&#10;+ PaymentOption (INT) FK NN&#10;+ CheckInDate (Date) NN&#10;+ CheckOutDate (Date) NN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="43" vertex="1">
                     <mxGeometry y="30" width="210" height="130" as="geometry"/>
@@ -65,10 +65,10 @@
                     <mxGeometry y="30" width="190" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="93" value="FoodOrders" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006600;strokeColor=#82b366;gradientColor=#97d077;gradientDirection=north;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="230" width="210" height="120" as="geometry"/>
+                    <mxGeometry x="480" y="230" width="210" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="94" value="+ ID (INT) PK&#10;+ GuestID (INT) FK NN&#10;+ Paid (Bool) NN&#10;+ PaymentOption (INT) FK NN&#10;+ TotalAmount (INT) NN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="93" vertex="1">
-                    <mxGeometry y="30" width="210" height="90" as="geometry"/>
+                <mxCell id="94" value="+ ID (INT) PK&#10;+ GuestID (INT) FK NN&#10;+ Paid (Bool) NN&#10;+ PaymentOption (INT) FK NN&#10;+ TotalAmount (INT) NN&#10;+ BookingID (INT) FK NN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="93" vertex="1">
+                    <mxGeometry y="30" width="210" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="97" value="FoodItemBooking" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006600;strokeColor=#82b366;gradientColor=#97d077;gradientDirection=north;" parent="1" vertex="1">
                     <mxGeometry x="50" y="210" width="210" height="90" as="geometry"/>
@@ -125,7 +125,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="113" value="_PaymentOptions" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" parent="1" vertex="1">
-                    <mxGeometry x="790" y="400" width="190" height="80" as="geometry"/>
+                    <mxGeometry x="790" y="270" width="190" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="114" value="+ ID (INT) PK&#10;+ Option (varchar) UNN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="113" vertex="1">
                     <mxGeometry y="30" width="190" height="50" as="geometry"/>
@@ -166,13 +166,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="123" value="_StaffShift" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" vertex="1" parent="1">
+                <mxCell id="123" value="_StaffShift" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" parent="1" vertex="1">
                     <mxGeometry x="150" y="1390" width="200" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="124" value="+ ID (INT) PK&#10;+ EntryTime (TIME) NN&#10;+ ExitTime (TIME) " style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" vertex="1" parent="123">
+                <mxCell id="124" value="+ ID (INT) PK&#10;+ EntryTime (TIME) NN&#10;+ ExitTime (TIME) " style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="123" vertex="1">
                     <mxGeometry y="30" width="200" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="125" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.838;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="124" target="104">
+                <mxCell id="125" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.838;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="124" target="104" edge="1">
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
                         <mxPoint x="-20" y="1460" as="sourcePoint"/>
                         <mxPoint x="400" y="1320" as="targetPoint"/>
@@ -182,6 +182,12 @@
                             <mxPoint x="390" y="1360"/>
                             <mxPoint x="390" y="1319"/>
                         </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="126" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="44" target="94">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="460" y="520" as="sourcePoint"/>
+                        <mxPoint x="700" y="410" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>

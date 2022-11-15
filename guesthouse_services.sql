@@ -63,6 +63,7 @@ CREATE TABLE `booking` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
     room_id INT NOT NULL,
+    total_amount INT NOT NULL,
     payment_option_id INT,
     checkin_date DATETIME NOT NULL,
     checkout_date DATETIME,
@@ -84,11 +85,13 @@ CREATE TABLE`FoodItem` (
 CREATE TABLE `foodOrders` (
     id INT PRIMARY KEY AUTO_INCREMENT,
     guest_id INT NOT NULL,
+    booking_id INT NOT NULL,
     paid BOOLEAN,
     payment_option_id INT,
     total_amount INT NOT NULL,
     FOREIGN KEY (guest_id) REFERENCES `Guest`(id),
-    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id)
+    FOREIGN KEY (payment_option_id) REFERENCES `_PaymentOption`(id),
+    FOREIGN KEY (booking_id) REFERENCES `booking`(id)   
 );
 
 -- food Item Booking Table
@@ -200,3 +203,29 @@ CREATE FUNCTION `BookGuestHouse`(
         RETURN (is_avilable);
     END ||
 DELIMITER;
+
+-- bill generation function
+DELIMITER ||
+CREATE PROCEDURE `GenerateBill`(
+    IN guest_id INT,
+    IN bookingid INT,
+    IN bill_type VARCHAR(50)
+)
+BEGIN
+    SET @booking_id = bookingid;
+    IF bill_type = 'total' THEN
+        -- show all bills combining food and room
+        SELECT `booking`.id as id ,`booking`.total_amount as total_amount, `booking`.payment_option_id as payment_option 
+            FROM `booking` WHERE `booking`.guest_id = guest_id AND `booking`.id = booking_id UNION 
+                SELECT `foodOrders`.id as id, `foodOrders`.total_amount as total_amount, `foodOrders`.payment_option_id as payment_option 
+                    FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
+    ELSEIF bill_type = 'food' THEN
+        SET @constString = 'total';
+        SET @foodOrdersId = (SELECT id FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id);
+        SELECT `foodItemBooking`.id as id, `FoodItem`.name as name, `FoodItem`.price as price 
+            FROM `foodItemBooking` INNER JOIN `FoodItem` ON `foodItemBooking`.food_item_id = `FoodItem`.id 
+                WHERE `foodItemBooking`.order_id = foodOrdersId UNION 
+                    SELECT `foodOrders`.id as id, @constString as name, `foodOrders`.total_amount as price 
+                        FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
+    END IF;
+END ||

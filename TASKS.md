@@ -10,8 +10,8 @@
 ## Procedures and Functions
 
 - ### GuestHouse
-  - [ ] Room Booking.
-  - [ ] Bill Generation.
+  - [x] Room Booking.
+  - [x] Bill Generation.
   - [ ] Check-in & Check-out for staff.
   - [ ] Food Booking.
 - ### MarketPlace
