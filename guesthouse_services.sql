@@ -261,3 +261,14 @@ BEGIN
                         FROM `foodOrders` WHERE `foodOrders`.guest_id = guest_id AND `foodOrders`.booking_id = booking_id;
     END IF;
 END ||
+
+
+-- food booking
+DELIMITER ||
+CREATE PROCEDURE `BookFood`(
+    IN guest_id INT,
+    IN booking_id INT,
+    IN food_item_id INT,
+    IN quantity INT,
+    IN payment_option_id INT
+)
