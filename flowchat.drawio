@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ycOPQLDIYc8ZWvYrpJF7" name="GuestHouse Amenities">
-        <mxGraphModel dx="1954" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1652" dy="592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -71,10 +71,10 @@
                     <mxGeometry y="30" width="210" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="97" value="FoodItemBooking" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006600;strokeColor=#82b366;gradientColor=#97d077;gradientDirection=north;" parent="1" vertex="1">
-                    <mxGeometry x="50" y="210" width="210" height="90" as="geometry"/>
+                    <mxGeometry x="50" y="210" width="210" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="98" value="+ ID (INT) PK&#10;+ OrderId (INT) FK&#10;+ FoodItemId (INT) FK" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="97" vertex="1">
-                    <mxGeometry y="30" width="210" height="60" as="geometry"/>
+                <mxCell id="98" value="+ ID (INT) PK&#10;+ OrderId (INT) FK&#10;+ FoodItemId (INT) FK&#10;+ amount (INT) PK " style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="97" vertex="1">
+                    <mxGeometry y="30" width="210" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="99" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;endFill=1;fontFamily=JetBrains Mono;fontColor=#F0F0F0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="92" target="98" edge="1">
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
@@ -184,7 +184,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="126" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="44" target="94">
+                <mxCell id="126" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" parent="1" source="44" target="94" edge="1">
                     <mxGeometry width="100" height="100" relative="1" as="geometry">
                         <mxPoint x="460" y="520" as="sourcePoint"/>
                         <mxPoint x="700" y="410" as="targetPoint"/>
