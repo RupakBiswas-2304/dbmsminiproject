@@ -99,3 +99,45 @@ BEGIN
     CALL before_delete_in_Shop(OLD.shop_id);
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE update_license_table()
+BEGIN
+    DECLARE up_for_lic TABLE(id INT, extendby INT);
+    INSERT INTO up_for_lic (id, extendby)
+    SELECT (lic_id, ext_period) Extension WHERE ext_status = 1;
+    DECLARE n INT DEFAULT 0;
+    DECLARE i INT DEFAULT 0;
+    SET n = COUNT(*) FROM up_for_lic;
+    SET i = 0;
+    WHILE i<n DO
+        BEGIN
+        DECLARE extendby_i INT DEFAULT 0;
+        DECLARE id_i INT DEFAULT 0;
+        SET extendby_i = SELECT extendby FROM up_for_lic LIMIT i,1;
+        SET id_i = SELECT id FROM up_for_lic LIMIT i,1;
+        UPDATE TABLE Extension
+        SET expire_date = DATE_ADD(expire_date, INTERVAL extendby_i YEAR)
+        WHERE lic_id = id_i;
+        SET i=i+1;
+        END;
+    END WHILE;
+    DELETE FROM Extension WHERE ext_status = 1;
+END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE update_extension_table()
+BEGIN
+    INSERT INTO Extension (lic_id, ext_period, ext_fee)
+    SELECT (lic_id, 2024 - YEAR(expire_date), 1000*(2024 - YEAR(expire_date)))
+    FROM License WHERE lic_status = 1;
+    DELETE FROM License WHERE lic_status = 1;
+END; //
+DELIMITER ;
+
+-- (
+--             SELECT lic_status FROM
+--             (SELECT * FROM License ORDER BY lic_id ASC) AS T
+--             WHERE rownum=i+1;
+--         );
