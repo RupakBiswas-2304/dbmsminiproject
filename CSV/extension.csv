@@ -1,0 +1,5 @@
+ext_id,lic_id,ext_period,ext_fee,mod_pay,ext_status
+1,4,1,10000,cash,1
+2,7,1,10000,digital,0
+3,8,2,25000,digital,0
+4,9,2,25000,digital,1

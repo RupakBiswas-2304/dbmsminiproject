@@ -1,0 +1,13 @@
+bill_id,type,shop_id,amount,mod_pay,bill_status
+1,rent,8,3000,cash,0
+2,rent,3,2000,digital,0
+3,rent,4,3000,cash,1
+4,rent,2,4000,cash,1
+5,rent,8,6000,digital,0
+6,rent,7,2000,cash,1
+7,rent,6,3000,cash,0
+8,rent,1,6000,digital,0
+9,rent,9,2000,cash,1
+10,water,2,200,cash,0
+11,electricity,3,700,digital,1
+12,electricity,7,800,digital,0
