@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ycOPQLDIYc8ZWvYrpJF7" name="GuestHouse Amenities">
-        <mxGraphModel dx="1413" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1718" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,7 +19,7 @@
                 <mxCell id="36" value="Room" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006666;strokeColor=#6c8ebf;gradientColor=#7ea6e0;gradientDirection=north;" parent="1" vertex="1">
                     <mxGeometry x="-10" y="590" width="230" height="160" as="geometry"/>
                 </mxCell>
-                <mxCell id="37" value="+ ID (INT) PK&#10;+ RoomNo (varchar) NN&#10;+ GuestHouseId (INT) FK NN &#10;+ Block (varchar) &#10;+ Floor (INT)&#10;+ vacant (Bool) NN&#10;+ Maintenance (Bool) &#10;+ type (INT) FK NN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="36" vertex="1">
+                <mxCell id="37" value="+ ID (INT) PK&#10;+ RoomNo (varchar) NN&#10;+ GuestHouseId (INT) FK NN &#10;+ Block (varchar) &#10;+ vacant (Bool) NN&#10;+ Maintenance (Bool) &#10;+ type (INT) FK NN" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontFamily=JetBrains Mono;" parent="36" vertex="1">
                     <mxGeometry y="30" width="230" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="43" value="booking" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fontFamily=JetBrains Mono;fillColor=#006600;strokeColor=#82b366;gradientColor=#97d077;gradientDirection=north;" parent="1" vertex="1">
