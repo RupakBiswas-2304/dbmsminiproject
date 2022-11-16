@@ -1,29 +1,29 @@
-load data local infile '/home/sanskriti/Downloads/shop.csv'
+load data local infile '/CSV/shop.csv'
 into table Shop
 fields terminated by ','
 ignore 1 rows;
 
-load data local infile '/home/sanskriti/Downloads/shopkeeper.csv'
+load data local infile '/CSV/shopkeeper.csv'
 into table Shopkeeper
 fields terminated by ','
 ignore 1 rows;
 
-load data local infile '/home/sanskriti/Downloads/feedback.csv'
+load data local infile '/CSV/feedback.csv'
 into table Feedback
 fields terminated by ','
 ignore 1 rows;
 
-load data local infile '/home/sanskriti/Downloads/bill.csv'
+load data local infile '/CSV/bill.csv'
 into table Bill
 fields terminated by ','
 ignore 1 rows;
 
-load data local infile '/home/sanskriti/Downloads/license.csv'
+load data local infile '/CSV/license.csv'
 into table License
 fields terminated by ','
 ignore 1 rows;
 
-load data local infile '/home/sanskriti/Downloads/extension.csv'
+load data local infile '/CSV/extension.csv'
 into table Extension
 fields terminated by ','
 ignore 1 rows;
