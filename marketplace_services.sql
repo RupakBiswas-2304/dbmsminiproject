@@ -103,25 +103,30 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE update_license_table()
 BEGIN
-    DECLARE up_for_lic TABLE(id INT, extendby INT);
-    INSERT INTO up_for_lic (id, extendby)
+    DECLARE n INT;
+    DECLARE i INT;
+    DECLARE extendby_i INT;
+    DECLARE id_i INT;
+
+    CREATE TABLE up_for_lic (id INT, extendby INT);
+    INSERT INTO up_for_lic VALUES (id, extendby);
     SELECT (lic_id, ext_period) Extension WHERE ext_status = 1;
-    DECLARE n INT DEFAULT 0;
-    DECLARE i INT DEFAULT 0;
-    SET n = COUNT(*) FROM up_for_lic;
+
+    SET n = (SELECT COUNT(*) FROM up_for_lic);
     SET i = 0;
-    WHILE i<n DO
+    WHILE (i < n) DO
         BEGIN
-        DECLARE extendby_i INT DEFAULT 0;
-        DECLARE id_i INT DEFAULT 0;
-        SET extendby_i = SELECT extendby FROM up_for_lic LIMIT i,1;
-        SET id_i = SELECT id FROM up_for_lic LIMIT i,1;
-        UPDATE TABLE Extension
-        SET expire_date = DATE_ADD(expire_date, INTERVAL extendby_i YEAR)
+        SET extendby_i = (SELECT extendby FROM up_for_lic LIMIT i,1);
+        SET id_i = (SELECT id FROM up_for_lic LIMIT i,1);
+
+        UPDATE Extension
+        SET expire_date = (DATE_ADD(expire_date, INTERVAL extendby_i YEAR))
         WHERE lic_id = id_i;
+
         SET i=i+1;
         END;
     END WHILE;
+    DROP TABLE up_for_lic;
     DELETE FROM Extension WHERE ext_status = 1;
 END; //
 DELIMITER ;
@@ -135,9 +140,3 @@ BEGIN
     DELETE FROM License WHERE lic_status = 1;
 END; //
 DELIMITER ;
-
--- (
---             SELECT lic_status FROM
---             (SELECT * FROM License ORDER BY lic_id ASC) AS T
---             WHERE rownum=i+1;
---         );
